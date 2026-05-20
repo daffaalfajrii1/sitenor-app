@@ -1,0 +1,175 @@
+/* Sitenor admin overrides */
+
+.nxl-container .page-header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+}
+
+.nxl-container .page-header-left {
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.nxl-container .page-header-title h5 {
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+}
+
+.nxl-container .breadcrumb {
+    flex-wrap: wrap;
+    margin-bottom: 0;
+}
+
+.nxl-container .page-header-right {
+    flex-shrink: 0;
+}
+
+.nxl-header,
+.nxl-header .header-wrapper,
+.nxl-header .header-right {
+    overflow: visible !important;
+}
+
+.nxl-header .header-wrapper {
+    padding-left: 1rem;
+    padding-right: 1.25rem;
+}
+
+.nxl-header .sitenor-header-profile {
+    position: relative;
+    z-index: 1060;
+}
+
+.nxl-header .sitenor-profile-wrap {
+    position: relative;
+    padding-bottom: 6px;
+    margin-bottom: -6px;
+}
+
+.nxl-header .sitenor-profile-toggle {
+    color: inherit;
+    max-width: 220px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.15s ease;
+}
+
+.nxl-header .sitenor-profile-wrap:hover .sitenor-profile-toggle {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.nxl-header .sitenor-profile-name {
+    max-width: 140px;
+}
+
+.nxl-header .sitenor-profile-avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.nxl-header .sitenor-profile-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px);
+    right: 0;
+    min-width: 260px;
+    max-width: min(300px, calc(100vw - 2rem));
+    background: #fff !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.15) !important;
+    z-index: 1060;
+    overflow: hidden;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none;
+}
+
+.nxl-header .sitenor-profile-wrap:hover .sitenor-profile-menu,
+.nxl-header .sitenor-profile-wrap:focus-within .sitenor-profile-menu {
+    display: block;
+    pointer-events: auto;
+}
+
+.nxl-header .sitenor-profile-menu-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    min-width: 0;
+    background: #fff;
+}
+
+.nxl-header .sitenor-profile-menu-header .fw-bold {
+    color: #1f2937 !important;
+}
+
+.nxl-header .sitenor-profile-menu-header .fs-12 {
+    color: #6b7280 !important;
+}
+
+.nxl-header .sitenor-profile-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    color: #283c50 !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: #fff;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nxl-header .sitenor-profile-menu-item i {
+    color: #3454d1 !important;
+    opacity: 1 !important;
+}
+
+.nxl-header .sitenor-profile-menu-item:hover {
+    background-color: #f4f6fb !important;
+    color: #1a2b4a !important;
+}
+
+.nxl-header .sitenor-profile-menu-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 0.25rem 0;
+}
+
+.nxl-header .sitenor-profile-logout {
+    color: #dc3545;
+}
+
+.nxl-header .sitenor-profile-logout:hover {
+    background-color: rgba(220, 53, 69, 0.08);
+    color: #dc3545;
+}
+
+@media (max-width: 991.98px) {
+    .nxl-container .page-header-right {
+        width: 100%;
+    }
+
+    .nxl-container .page-header-right .d-flex {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nxl-container .page-header-right .btn {
+        flex: 1 1 auto;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .nxl-container .main-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .table .d-inline-flex .btn {
+        white-space: nowrap;
+    }
+}

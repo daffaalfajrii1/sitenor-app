@@ -1,0 +1,5 @@
+@extends('admin.layouts.app')
+@section('content')
+@include('admin.components.page-header',['title'=>'Prestasi Atlet','actions'=>'<a href="'.route('admin.prestasi.create').'" class="btn btn-primary">Tambah</a>'])
+<div class="main-content"><div class="card"><div class="card-body p-0"><table class="table mb-0"><thead><tr><th>Atlet</th><th>Prestasi</th><th>Level</th><th>Tahun</th><th>Aksi</th></tr></thead><tbody>@forelse($prestasis as $p)<tr><td>{{ $p->atlet->name }}</td><td>{{ $p->title }}</td><td>{{ ucfirst($p->level) }}</td><td>{{ $p->year ?? '-' }}</td><td><a href="{{ route('admin.prestasi.edit',$p) }}" class="btn btn-sm btn-light-brand">Edit</a><form action="{{ route('admin.prestasi.destroy',$p) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus?')">@csrf @method('DELETE')<button class="btn btn-sm btn-danger">Hapus</button></form></td></tr>@empty<tr><td colspan="5" class="text-center py-4">Belum ada prestasi</td></tr>@endforelse</tbody></table><div class="p-3">{{ $prestasis->links() }}</div></div></div></div>
+@endsection

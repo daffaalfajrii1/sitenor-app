@@ -1,0 +1,5 @@
+@extends('admin.layouts.app')
+@section('content')
+@include('admin.components.page-header',['title'=>'Pengumuman','actions'=>'<a href="'.route('admin.pengumuman.create').'" class="btn btn-primary"><i class="feather-plus me-2"></i>Upload</a>'])
+<div class="main-content"><div class="card"><div class="card-body p-0"><table class="table mb-0"><thead><tr><th>Judul</th><th>File</th><th>Status</th><th>Aksi</th></tr></thead><tbody>@forelse($pengumumans as $p)<tr><td>{{ $p->title }}</td><td>{{ $p->file_name }}</td><td>{{ $p->is_published?'Terbit':'Draft' }}</td><td><a href="{{ Storage::url($p->file_path) }}" target="_blank" class="btn btn-sm btn-light-brand">Unduh</a> <a href="{{ route('admin.pengumuman.edit',$p) }}" class="btn btn-sm btn-light-brand">Edit</a><form action="{{ route('admin.pengumuman.destroy',$p) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus?')">@csrf @method('DELETE')<button class="btn btn-sm btn-danger">Hapus</button></form></td></tr>@empty<tr><td colspan="4" class="text-center py-4">Belum ada pengumuman</td></tr>@endforelse</tbody></table><div class="p-3">{{ $pengumumans->links() }}</div></div></div></div>
+@endsection
