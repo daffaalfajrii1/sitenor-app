@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Concerns\ValidatesPrestasiInput;
 use App\Http\Controllers\Controller;
 use App\Models\Atlet;
 use App\Models\Cabor;
@@ -10,20 +11,49 @@ use Illuminate\Http\Request;
 
 class PrestasiController extends Controller
 {
+    use ValidatesPrestasiInput;
+
     public function index(Request $request)
     {
-        $prestasis = Prestasi::query()
-            ->with(['atlet.cabor'])
-            ->when($request->atlet_id, fn ($q) => $q->where('atlet_id', $request->atlet_id))
-            ->when($request->cabor_id, fn ($q) => $q->whereHas('atlet', fn ($a) => $a->where('cabor_id', $request->cabor_id)))
-            ->latest()
+        if ($request->filled('atlet_id') && ! $request->has('page')) {
+            $atlet = Atlet::find($request->atlet_id);
+            if ($atlet) {
+                return redirect()->route('admin.prestasi.atlet', $atlet);
+            }
+        }
+
+        $atlets = Atlet::query()
+            ->with('cabor')
+            ->withCount('prestasis')
+            ->when($request->cabor_id, fn ($q) => $q->where('cabor_id', $request->cabor_id))
+            ->when($request->atlet_id, fn ($q) => $q->where('id', $request->atlet_id))
+            ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
+            ->orderBy('name')
             ->paginate(15)
             ->withQueryString();
 
         return view('admin.prestasi.index', [
-            'prestasis' => $prestasis,
+            'atlets' => $atlets,
             'cabors' => Cabor::orderBy('name')->get(),
-            'atlets' => Atlet::with('cabor')->orderBy('name')->get(),
+            'atletOptions' => Atlet::with('cabor')->orderBy('name')->get(),
+        ]);
+    }
+
+    public function atlet(Atlet $atlet)
+    {
+        $atlet->load([
+            'cabor',
+            'prestasis' => fn ($q) => $q->latest(),
+        ]);
+
+        $levelCounts = $atlet->prestasis
+            ->groupBy('level')
+            ->map->count();
+
+        return view('admin.prestasi.atlet', [
+            'atlet' => $atlet,
+            'levelCounts' => $levelCounts,
+            'levels' => Prestasi::levelOptions(),
         ]);
     }
 
@@ -38,20 +68,13 @@ class PrestasiController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'atlet_id' => ['required', 'exists:atlets,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'event_name' => ['nullable', 'string', 'max:255'],
-            'level' => ['required', 'in:kabupaten,provinsi,nasional,internasional'],
-            'rank' => ['nullable', 'string', 'max:100'],
-            'year' => ['nullable', 'integer', 'min:1900', 'max:2100'],
-            'location' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-        ]);
+        $validated = $this->validatedPrestasi($request);
 
         Prestasi::create($validated);
 
-        return redirect()->route('admin.prestasi.index')->with('success', 'Prestasi berhasil ditambahkan.');
+        return redirect()
+            ->route('admin.prestasi.atlet', $validated['atlet_id'])
+            ->with('success', 'Prestasi berhasil ditambahkan.');
     }
 
     public function edit(Prestasi $prestasi)
@@ -65,26 +88,22 @@ class PrestasiController extends Controller
 
     public function update(Request $request, Prestasi $prestasi)
     {
-        $validated = $request->validate([
-            'atlet_id' => ['required', 'exists:atlets,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'event_name' => ['nullable', 'string', 'max:255'],
-            'level' => ['required', 'in:kabupaten,provinsi,nasional,internasional'],
-            'rank' => ['nullable', 'string', 'max:100'],
-            'year' => ['nullable', 'integer', 'min:1900', 'max:2100'],
-            'location' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-        ]);
+        $validated = $this->validatedPrestasi($request);
 
         $prestasi->update($validated);
 
-        return redirect()->route('admin.prestasi.index')->with('success', 'Prestasi berhasil diperbarui.');
+        return redirect()
+            ->route('admin.prestasi.atlet', $validated['atlet_id'])
+            ->with('success', 'Prestasi berhasil diperbarui.');
     }
 
     public function destroy(Prestasi $prestasi)
     {
+        $atletId = $prestasi->atlet_id;
         $prestasi->delete();
 
-        return redirect()->route('admin.prestasi.index')->with('success', 'Prestasi berhasil dihapus.');
+        return redirect()
+            ->route('admin.prestasi.atlet', $atletId)
+            ->with('success', 'Prestasi berhasil dihapus.');
     }
 }

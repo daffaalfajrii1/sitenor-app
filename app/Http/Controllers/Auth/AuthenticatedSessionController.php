@@ -28,17 +28,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = $request->user();
+        $intended = $request->session()->pull('url.intended');
 
-        if ($user->hasRole('super admin')) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+        if (auth_should_use_intended_url($intended)) {
+            return redirect($intended);
         }
 
-        if ($user->hasRole('kepala cabor')) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
-        }
-
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->to(auth_home_redirect());
     }
 
     /**

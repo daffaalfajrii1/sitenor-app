@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Concerns\HandlesArtikelEditorUpload;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Concerns\HandlesUploads;
 use App\Models\Artikel;
@@ -11,7 +12,24 @@ use Illuminate\Support\Facades\Auth;
 
 class ArtikelController extends Controller
 {
-    use HandlesUploads;
+    use HandlesArtikelEditorUpload, HandlesUploads;
+
+    public function released(Request $request)
+    {
+        $artikels = Artikel::query()
+            ->with(['cabor', 'user'])
+            ->where('is_published', true)
+            ->when($request->cabor_id, fn ($q) => $q->where('cabor_id', $request->cabor_id))
+            ->when($request->search, fn ($q, $s) => $q->where('title', 'like', "%{$s}%"))
+            ->latest('published_at')
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.artikel.released', [
+            'artikels' => $artikels,
+            'cabors' => Cabor::orderBy('name')->get(),
+        ]);
+    }
 
     public function index(Request $request)
     {
@@ -19,6 +37,7 @@ class ArtikelController extends Controller
             ->with('cabor')
             ->when($request->cabor_id, fn ($q) => $q->where('cabor_id', $request->cabor_id))
             ->when($request->search, fn ($q, $s) => $q->where('title', 'like', "%{$s}%"))
+            ->when($request->filled('is_published'), fn ($q) => $q->where('is_published', $request->boolean('is_published')))
             ->latest()
             ->paginate(15)
             ->withQueryString();
@@ -40,12 +59,15 @@ class ArtikelController extends Controller
         $validated['slug'] = $this->uniqueSlug($validated['title'], Artikel::class);
         $validated['thumbnail'] = $this->storeUpload($request->file('thumbnail'), 'artikels');
         $validated['user_id'] = Auth::id();
-        $validated['is_published'] = $request->boolean('is_published');
-        $validated['published_at'] = $validated['is_published'] ? now() : null;
+        [$validated['is_published'], $validated['published_at']] = $this->resolvePublishState($request);
 
         Artikel::create($validated);
 
-        return redirect()->route('admin.artikel.index')->with('success', 'Artikel berhasil ditambahkan.');
+        $message = $validated['is_published']
+            ? 'Artikel berhasil diterbitkan.'
+            : 'Draft artikel berhasil disimpan.';
+
+        return redirect()->route('admin.artikel.index')->with('success', $message);
     }
 
     public function edit(Artikel $artikel)
@@ -65,19 +87,15 @@ class ArtikelController extends Controller
         }
 
         $validated['thumbnail'] = $this->storeUpload($request->file('thumbnail'), 'artikels', $artikel->thumbnail);
-        $validated['is_published'] = $request->boolean('is_published');
-
-        if ($validated['is_published'] && ! $artikel->published_at) {
-            $validated['published_at'] = now();
-        }
-
-        if (! $validated['is_published']) {
-            $validated['published_at'] = null;
-        }
+        [$validated['is_published'], $validated['published_at']] = $this->resolvePublishState($request, $artikel);
 
         $artikel->update($validated);
 
-        return redirect()->route('admin.artikel.index')->with('success', 'Artikel berhasil diperbarui.');
+        $message = $validated['is_published']
+            ? 'Artikel berhasil diperbarui dan diterbitkan.'
+            : 'Draft artikel berhasil disimpan.';
+
+        return redirect()->route('admin.artikel.index')->with('success', $message);
     }
 
     public function destroy(Artikel $artikel)
@@ -99,7 +117,23 @@ class ArtikelController extends Controller
             'excerpt' => ['nullable', 'string', 'max:500'],
             'content' => ['nullable', 'string'],
             'thumbnail' => ['nullable', 'image', 'max:2048'],
-            'is_published' => ['nullable', 'boolean'],
+            'save_action' => ['nullable', 'in:draft,publish'],
         ]);
+    }
+
+    /**
+     * @return array{0: bool, 1: ?\Illuminate\Support\Carbon}
+     */
+    private function resolvePublishState(Request $request, ?Artikel $artikel = null): array
+    {
+        $publish = $request->input('save_action', 'publish') === 'publish';
+
+        if (! $publish) {
+            return [false, null];
+        }
+
+        $publishedAt = $artikel?->published_at ?? now();
+
+        return [true, $publishedAt];
     }
 }

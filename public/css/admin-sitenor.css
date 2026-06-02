@@ -1,5 +1,349 @@
 /* Sitenor admin overrides */
 
+/* Brand sidebar panel: logo + nama aplikasi dari pengaturan website */
+.nxl-navigation .m-header {
+    padding: 12px 16px !important;
+    overflow: visible;
+}
+
+.nxl-navigation .m-header .sitenor-panel-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.nxl-navigation .m-header .sitenor-panel-brand__logo-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nxl-navigation .m-header .sitenor-panel-brand__logo {
+    max-height: 36px;
+    width: auto;
+    max-width: 42px;
+    object-fit: contain;
+}
+
+.nxl-navigation .m-header .sitenor-panel-brand__name {
+    display: block !important;
+    flex: 1;
+    min-width: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #283c50;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mode sidebar mini: hanya logo kecil */
+html.minimenu .nxl-navigation .m-header .sitenor-panel-brand__name {
+    display: none !important;
+}
+
+html.minimenu .nxl-navigation .m-header .sitenor-panel-brand {
+    justify-content: center;
+}
+
+html.minimenu .nxl-navigation .m-header .sitenor-panel-brand__logo-wrap .logo-lg {
+    display: none !important;
+}
+
+html.minimenu .nxl-navigation .m-header .sitenor-panel-brand__logo-wrap .logo-sm {
+    display: block !important;
+}
+
+html:not(.minimenu) .nxl-navigation .m-header .sitenor-panel-brand__logo-wrap .logo-sm {
+    display: none !important;
+}
+
+html:not(.minimenu) .nxl-navigation .m-header .sitenor-panel-brand__logo-wrap .logo-lg {
+    display: block !important;
+}
+
+/* Footer situs (admin, login, public) */
+.sitenor-panel-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 70px);
+}
+
+.sitenor-site-footer {
+    margin-top: auto;
+    padding: 1rem 1.5rem 1.25rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: #64748b;
+    background-color: #fff;
+    border-top: 1px solid #e9ecef;
+}
+
+.sitenor-site-footer__copyright {
+    color: #475569;
+    font-weight: 500;
+}
+
+.sitenor-site-footer__partner {
+    color: #94a3b8;
+    font-size: 0.75rem;
+}
+
+.sitenor-site-footer--auth {
+    background: transparent;
+    border-top: none;
+    padding: 1rem 1.5rem 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.sitenor-site-footer--auth .sitenor-site-footer__copyright {
+    color: #fff;
+}
+
+.sitenor-site-footer--auth .sitenor-site-footer__partner {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.sitenor-site-footer--public {
+    background-color: #f8fafc;
+}
+
+/* Tabel data admin */
+.sitenor-data-table thead th {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #64748b;
+    background-color: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+}
+
+.sitenor-data-table tbody td {
+    padding: 0.9rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sitenor-data-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.sitenor-data-table .sitenor-cell-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.sitenor-table-actions {
+    gap: 0.35rem;
+}
+
+.sitenor-table-actions .btn {
+    min-width: 4.5rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.sitenor-table-actions form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.sitenor-dash-stat {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sitenor-dash-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.sitenor-dash-stat__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+}
+
+.sitenor-dash-progress {
+    background-color: #e2e8f0;
+    border-radius: 999px;
+}
+
+.sitenor-dash-progress .progress-bar {
+    border-radius: 999px;
+}
+
+.sitenor-prestasi-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    max-width: 320px;
+}
+
+.sitenor-prestasi-preview .badge {
+    font-weight: 500;
+    font-size: 0.7rem;
+}
+
+.sitenor-table-card {
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.sitenor-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    padding: 0 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Halaman prestasi per atlet */
+.sitenor-prestasi-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #ea580c 55%, #b91c1c 100%);
+    color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(30, 64, 175, 0.25);
+}
+
+.sitenor-prestasi-hero__avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sitenor-prestasi-hero__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sitenor-prestasi-hero__initial {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.sitenor-prestasi-hero__cabor {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: 600;
+}
+
+.sitenor-prestasi-hero__name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+.sitenor-prestasi-hero__meta {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+.sitenor-prestasi-hero__stat {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: none;
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    min-width: 120px;
+}
+
+.sitenor-prestasi-hero__stat-num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+}
+
+.sitenor-prestasi-hero__stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+    margin-top: 0.25rem;
+}
+
+.sitenor-level-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.sitenor-level-pill--sm {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+}
+
+.sitenor-level-pill--kabupaten { background: #dbeafe; color: #1d4ed8; }
+.sitenor-level-pill--provinsi { background: #ede9fe; color: #6d28d9; }
+.sitenor-level-pill--nasional { background: #ffedd5; color: #c2410c; }
+.sitenor-level-pill--internasional { background: #fef3c7; color: #b45309; }
+
+.sitenor-prestasi-card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sitenor-prestasi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+}
+
+.sitenor-prestasi-card__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.sitenor-prestasi-empty-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #eff6ff, #fff7ed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #2563eb;
+}
+
+.sitenor-public-main {
+    background-color: #f8fafc;
+}
+
 .nxl-container .page-header {
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -172,4 +516,363 @@
     .table .d-inline-flex .btn {
         white-space: nowrap;
     }
+}
+
+/* Tombol Simpan / Batal di form */
+.sitenor-form-actions,
+.card-body form > .mt-4 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sitenor-form-actions .sitenor-btn-action,
+.card-body form > .mt-4 .btn-primary,
+.card-body form > .mt-4 .btn-light,
+.card-body form > .mt-4 a.btn,
+.card-body form > .mt-4 a.btn-light {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    min-width: 7.5rem;
+    max-width: 100%;
+    flex: 0 0 auto;
+}
+
+@media (max-width: 575.98px) {
+    .sitenor-form-actions,
+    .card-body form > .mt-4 {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sitenor-form-actions .sitenor-btn-action,
+    .card-body form > .mt-4 .btn-primary,
+    .card-body form > .mt-4 .btn-light,
+    .card-body form > .mt-4 a.btn,
+    .card-body form > .mt-4 a.btn-light {
+        width: 100% !important;
+        min-width: 0;
+    }
+}
+
+/* Halaman auth (login & register) */
+.sitenor-auth-body {
+    position: relative;
+    overflow-x: hidden;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sitenor-auth-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #0f172a;
+}
+
+.sitenor-auth-scene__mesh {
+    position: absolute;
+    inset: -20%;
+    background:
+        radial-gradient(ellipse 55% 45% at 15% 25%, rgba(37, 99, 235, 0.85) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 85% 20%, rgba(249, 115, 22, 0.75) 0%, transparent 50%),
+        radial-gradient(ellipse 45% 50% at 70% 85%, rgba(220, 38, 38, 0.7) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 35% at 25% 75%, rgba(59, 130, 246, 0.5) 0%, transparent 50%),
+        linear-gradient(145deg, #1e3a8a 0%, #7c2d12 45%, #991b1b 100%);
+    animation: sitenor-auth-mesh 18s ease-in-out infinite alternate;
+}
+
+@keyframes sitenor-auth-mesh {
+    0% { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.08) rotate(2deg); }
+}
+
+.sitenor-auth-scene__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    animation: sitenor-auth-float 12s ease-in-out infinite;
+}
+
+.sitenor-auth-scene__orb--1 {
+    width: 280px;
+    height: 280px;
+    background: #3b82f6;
+    top: 8%;
+    left: -5%;
+}
+
+.sitenor-auth-scene__orb--2 {
+    width: 220px;
+    height: 220px;
+    background: #f97316;
+    top: 45%;
+    right: -3%;
+    animation-delay: -4s;
+}
+
+.sitenor-auth-scene__orb--3 {
+    width: 200px;
+    height: 200px;
+    background: #ef4444;
+    bottom: 5%;
+    left: 35%;
+    animation-delay: -8s;
+}
+
+@keyframes sitenor-auth-float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(12px, -18px); }
+}
+
+.sitenor-auth-wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+
+.sitenor-auth-wave--1 {
+    bottom: 0;
+    min-height: 140px;
+    animation: sitenor-auth-wave 8s ease-in-out infinite alternate;
+}
+
+.sitenor-auth-wave--2 {
+    bottom: -20px;
+    min-height: 120px;
+    opacity: 0.9;
+    animation: sitenor-auth-wave 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes sitenor-auth-wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-2%); }
+}
+
+.sitenor-auth-main {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem 1rem 1rem;
+    width: 100%;
+}
+
+.sitenor-auth-wrap {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.sitenor-auth-wrap--wide,
+.sitenor-auth-main--wide .sitenor-auth-wrap {
+    max-width: 560px;
+}
+
+.sitenor-auth-card {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow:
+        0 25px 50px -12px rgba(15, 23, 42, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    overflow: hidden;
+}
+
+.sitenor-auth-card__accent {
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb 0%, #f97316 50%, #dc2626 100%);
+}
+
+.sitenor-auth-card__header {
+    padding: 1.75rem 1.5rem 1rem;
+    text-align: center;
+}
+
+.sitenor-auth-card__header img {
+    max-height: 64px;
+    width: auto;
+    margin-bottom: 0.85rem;
+    border-radius: 0.65rem;
+    background: #fff;
+    padding: 0.4rem;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
+}
+
+.sitenor-auth-card__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+}
+
+.sitenor-auth-card__subtitle {
+    font-size: 0.8125rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.sitenor-auth-card__body {
+    padding: 0 1.5rem 1.75rem;
+}
+
+@media (min-width: 576px) {
+    .sitenor-auth-card__body {
+        padding: 0 2rem 2rem;
+    }
+}
+
+.sitenor-auth-card .form-control,
+.sitenor-auth-card .form-select {
+    border-radius: 0.625rem;
+    padding: 0.65rem 0.9rem;
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.sitenor-auth-card .form-control:focus,
+.sitenor-auth-card .form-select:focus {
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.sitenor-auth-card label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.35rem;
+}
+
+.sitenor-auth-card__link {
+    color: #ea580c;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.sitenor-auth-card__link:hover {
+    color: #c2410c;
+    text-decoration: underline;
+}
+
+.sitenor-auth-submit {
+    color: #fff;
+    border: none;
+    border-radius: 0.625rem;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(105deg, #2563eb 0%, #f97316 52%, #dc2626 100%);
+    background-size: 200% auto;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+    transition: background-position 0.35s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sitenor-auth-submit:hover {
+    color: #fff;
+    background-position: 100% center;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(249, 115, 22, 0.4);
+}
+
+.sitenor-auth-submit:active {
+    transform: translateY(0);
+}
+
+/* Select invalid: hindari ikon X menimpa teks opsi */
+.sitenor-auth-card .form-select.is-invalid {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem;
+}
+
+.sitenor-auth-card .form-control.is-invalid,
+.sitenor-auth-card .form-select.is-invalid {
+    border-color: #f87171;
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2);
+}
+
+.sitenor-auth-swal {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+    border-radius: 1rem !important;
+}
+
+.sitenor-auth-swal .swal2-title {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.sitenor-auth-swal .swal2-html-container {
+    font-size: 0.9375rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+/* Select2 di halaman auth */
+.sitenor-auth-card .select2-container--bootstrap-5 .select2-selection {
+    min-height: calc(2.25rem + 2px);
+    border-radius: 0.625rem;
+    border-color: #e2e8f0;
+    background: #f8fafc;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 0.9375rem;
+}
+
+.sitenor-auth-card .select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.sitenor-auth-card .select2-container--bootstrap-5.select2-container--open .select2-selection {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    background: #fff;
+}
+
+.sitenor-auth-card .select2-container--bootstrap-5 .select2-dropdown {
+    border-radius: 0.625rem;
+    border-color: #e2e8f0;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    z-index: 1056;
+}
+
+.sitenor-auth-card .select2-container--bootstrap-5 .select2-search__field {
+    border-radius: 0.5rem;
+}
+
+.sitenor-auth-card .select2-container--bootstrap-5 .select2-results__option--highlighted {
+    background: linear-gradient(105deg, #2563eb 0%, #f97316 100%);
+}
+
+/* Onboarding lengkapi profil */
+.sitenor-onboarding-body {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #eef2ff 0%, #f0fdf4 50%, #fff 100%);
+}
+
+.sitenor-onboarding-header {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.sitenor-onboarding-main {
+    max-width: 960px;
+}
+
+.sitenor-auth-section {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #3454d1;
+    margin: 1rem 0 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid #e8eef9;
 }

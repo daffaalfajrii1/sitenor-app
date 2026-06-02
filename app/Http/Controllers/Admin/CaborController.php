@@ -12,12 +12,20 @@ class CaborController extends Controller
 {
     use HandlesUploads;
 
-    public function index()
+    public function index(Request $request)
     {
         $cabors = Cabor::query()
             ->withCount(['atlets', 'pelatihs', 'wasits', 'prestasis'])
+            ->when($request->search, function ($q, $s) {
+                $q->where(function ($q) use ($s) {
+                    $q->where('name', 'like', "%{$s}%")
+                        ->orWhere('kode', 'like', "%{$s}%");
+                });
+            })
+            ->when($request->filled('is_active'), fn ($q) => $q->where('is_active', $request->boolean('is_active')))
             ->orderBy('name')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
         return view('admin.cabor.index', compact('cabors'));
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Concerns\AppliesListFilters;
 use App\Http\Controllers\Admin\Concerns\HandlesUploads;
 use App\Models\Atlet;
 use App\Models\Cabor;
@@ -10,14 +11,15 @@ use Illuminate\Http\Request;
 
 class AtletController extends Controller
 {
-    use HandlesUploads;
+    use AppliesListFilters, HandlesUploads;
 
     public function index(Request $request)
     {
-        $atlets = Atlet::query()
-            ->with('cabor')
-            ->when($request->cabor_id, fn ($q) => $q->where('cabor_id', $request->cabor_id))
-            ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
+        $atlets = $this->applyCaborPersonFilters(
+            Atlet::query()->with('cabor')->withCount('prestasis'),
+            $request,
+            withGender: true
+        )
             ->latest()
             ->paginate(15)
             ->withQueryString();
@@ -84,7 +86,6 @@ class AtletController extends Controller
         return $request->validate([
             'cabor_id' => ['required', 'exists:cabors,id'],
             'name' => ['required', 'string', 'max:255'],
-            'nik' => ['nullable', 'string', 'max:20'],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'in:laki-laki,perempuan'],
             'phone' => ['nullable', 'string', 'max:20'],

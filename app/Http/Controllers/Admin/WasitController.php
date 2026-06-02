@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Concerns\ValidatesPersonnelLevel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Concerns\AppliesListFilters;
 use App\Http\Controllers\Admin\Concerns\HandlesUploads;
 use App\Models\Cabor;
 use App\Models\Wasit;
@@ -10,14 +12,11 @@ use Illuminate\Http\Request;
 
 class WasitController extends Controller
 {
-    use HandlesUploads;
+    use AppliesListFilters, HandlesUploads, ValidatesPersonnelLevel;
 
     public function index(Request $request)
     {
-        $wasits = Wasit::query()
-            ->with('cabor')
-            ->when($request->cabor_id, fn ($q) => $q->where('cabor_id', $request->cabor_id))
-            ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
+        $wasits = $this->applyCaborPersonFilters(Wasit::query()->with('cabor'), $request, searchLicense: true)
             ->latest()
             ->paginate(15)
             ->withQueryString();
@@ -82,14 +81,18 @@ class WasitController extends Controller
 
     private function validated(Request $request): array
     {
-        return $request->validate([
+        $validated = $request->validate([
             'cabor_id' => ['required', 'exists:cabors,id'],
             'name' => ['required', 'string', 'max:255'],
             'license_number' => ['nullable', 'string', 'max:100'],
-            'level' => ['nullable', 'string', 'max:100'],
+            ...$this->levelValidationRules(),
             'phone' => ['nullable', 'string', 'max:20'],
             'photo' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['nullable', 'boolean'],
         ]);
+
+        $this->normalizeValidatedLevel($validated);
+
+        return $validated;
     }
 }

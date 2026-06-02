@@ -1,0 +1,1093 @@
+/* Sitenor — Halaman publik */
+.sitenor-public-body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+.sitenor-public-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+}
+
+.sitenor-brand .logo-sm,
+.sitenor-brand .logo-lg {
+    display: none !important;
+}
+
+.sitenor-brand .sitenor-brand-logo {
+    display: block !important;
+}
+
+.sitenor-public-navbar {
+    --bs-navbar-padding-y: 0.75rem;
+}
+
+.sitenor-public-navbar > .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sitenor-public-navbar__brand {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.sitenor-public-navbar__toggler {
+    border-color: #e2e8f0;
+    padding: 0.4rem 0.55rem;
+}
+
+.sitenor-public-navbar__toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.2);
+}
+
+/* Desktop: satu baris — logo | menu | tombol */
+@media (min-width: 992px) {
+    .sitenor-public-navbar__collapse {
+        display: flex !important;
+        flex-basis: auto;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .sitenor-public-navbar__menu {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: center;
+        min-width: 0;
+    }
+
+    .sitenor-public-navbar__actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sitenor-public-navbar__collapse {
+        display: none !important;
+    }
+}
+
+.sitenor-public-offcanvas__header {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    padding: 1rem 1.25rem !important;
+    min-height: 64px;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.sitenor-public-offcanvas__title {
+    flex: 1;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+
+.sitenor-public-offcanvas__close {
+    flex-shrink: 0;
+    margin: 0 !important;
+    padding: 0.65rem !important;
+    opacity: 0.65;
+}
+
+.sitenor-public-offcanvas__close:hover {
+    opacity: 1;
+}
+
+.sitenor-public-offcanvas__body {
+    padding: 1rem 1.25rem 1.5rem !important;
+    overflow-y: auto;
+}
+
+.sitenor-public-offcanvas__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.sitenor-public-offcanvas__actions .btn {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    font-size: 0.9375rem;
+}
+
+/* Judul / nama SITENOR di header */
+.sitenor-brand--public .sitenor-brand-name {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    color: #1e3a8a;
+    background: linear-gradient(120deg, #dc2626 0%, #b91c1c 38%, #1e40af 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* Menu desktop — satu baris horizontal */
+.sitenor-public-navbar__menu .sitenor-public-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+}
+
+.sitenor-public-nav__link,
+.sitenor-public-nav a.sitenor-public-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #475569;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.45rem 0.65rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: color 0.15s, background 0.15s;
+}
+
+.sitenor-public-nav__link i {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.sitenor-public-nav__link:hover,
+.sitenor-public-nav__link.active {
+    color: #dc2626;
+    background: #fef2f2;
+}
+
+.sitenor-public-nav__group-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    padding: 0.5rem 0.85rem 0.25rem;
+}
+
+.sitenor-public-nav .dropdown-menu {
+    font-size: 0.875rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.1);
+    border-radius: 10px;
+    padding: 0.35rem;
+}
+
+.sitenor-public-nav--mobile {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    width: 100%;
+}
+
+.sitenor-public-nav--mobile .sitenor-public-nav__link {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+}
+
+.sitenor-public-nav--mobile .sitenor-public-nav__group-label {
+    padding: 1rem 1rem 0.35rem;
+    margin-top: 0.25rem;
+}
+
+.sitenor-public-nav--mobile .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    border: none;
+    box-shadow: none;
+    padding-left: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.sitenor-public-offcanvas {
+    width: min(300px, 92vw);
+    border-left: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: -8px 0 32px rgba(15, 23, 42, 0.12);
+}
+
+.offcanvas-backdrop.show,
+.sitenor-offcanvas-backdrop {
+    z-index: 1050;
+    background-color: #0f172a;
+    opacity: 0.55;
+}
+
+/* Saat menu mobile terbuka: sembunyikan header & tombol scroll */
+body.sitenor-public-nav-open {
+    overflow: hidden;
+}
+
+body.sitenor-public-nav-open .sitenor-public-header {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body.sitenor-public-nav-open .sitenor-scroll-top {
+    display: none !important;
+}
+
+.sitenor-public-main {
+    flex: 1 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.sitenor-public-offcanvas .offcanvas-title {
+    color: #1e293b;
+}
+
+@media (max-width: 991.98px) {
+    .sitenor-public-header .container {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .sitenor-brand--public .sitenor-brand-name {
+        font-size: 1.05rem;
+        max-width: min(180px, 52vw);
+    }
+
+    .sitenor-public-navbar__toggler {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .sitenor-public-navbar__menu .sitenor-public-nav__link {
+        padding: 0.4rem 0.55rem;
+        font-size: 0.8125rem;
+    }
+}
+
+/* Footer publik */
+.sitenor-public-footer {
+    margin-top: auto;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.sitenor-public-footer__tagline {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 320px;
+}
+
+.sitenor-public-footer__heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f8fafc;
+    margin-bottom: 1rem;
+}
+
+.sitenor-public-footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sitenor-public-footer__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+    font-size: 0.875rem;
+    color: #cbd5e1;
+}
+
+.sitenor-public-footer__list li i {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: #f87171;
+}
+
+.sitenor-public-footer__list a {
+    color: #e2e8f0;
+    text-decoration: none;
+}
+
+.sitenor-public-footer__list a:hover {
+    color: #fff;
+}
+
+.sitenor-public-footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.sitenor-public-footer__social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+
+.sitenor-public-footer__social a:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+.sitenor-public-footer .sitenor-brand--public .sitenor-brand-name {
+    -webkit-text-fill-color: #f8fafc;
+    background: none;
+    color: #f8fafc;
+}
+
+.sitenor-public-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sitenor-public-footer__copyright {
+    font-size: 0.8125rem;
+    color: #cbd5e1;
+}
+
+.sitenor-public-footer__partner {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Hero */
+.sitenor-public-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #eff6ff 100%);
+    padding: 4rem 0 5rem;
+}
+
+.sitenor-public-hero::before,
+.sitenor-public-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.sitenor-public-hero::before {
+    width: 280px;
+    height: 280px;
+    background: #fde047;
+    top: -80px;
+    left: -60px;
+}
+
+.sitenor-public-hero::after {
+    width: 320px;
+    height: 320px;
+    background: #93c5fd;
+    bottom: -120px;
+    right: -80px;
+}
+
+.sitenor-public-hero__badge {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.sitenor-public-hero__title {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.12;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+}
+
+.sitenor-public-hero__title span {
+    display: inline-block;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    background: linear-gradient(120deg, #dc2626 0%, #b91c1c 45%, #1e40af 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sitenor-public-hero__lead {
+    font-size: 1.05rem;
+    color: #64748b;
+    max-width: 540px;
+    margin-bottom: 1.75rem;
+}
+
+.sitenor-public-hero__illus-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 360px);
+    padding: 0.5rem;
+    background: #0f172a;
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+    border: 1px solid rgba(30, 41, 59, 0.9);
+    overflow: hidden;
+}
+
+.sitenor-public-hero__illus-img {
+    width: 100%;
+    height: auto;
+    max-width: 340px;
+    display: block;
+    object-fit: contain;
+    border-radius: 0.75rem;
+    animation: sitenorHeroFloat 4s ease-in-out infinite;
+}
+
+@keyframes sitenorHeroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Stat cards */
+.sitenor-public-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.sitenor-public-stat {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.sitenor-public-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    color: inherit;
+}
+
+.sitenor-public-stat__num {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #dc2626;
+    line-height: 1;
+}
+
+.sitenor-public-stat__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.35rem;
+}
+
+/* Chart sections */
+.sitenor-chart-section {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border-radius: 20px;
+    padding: 1.5rem 1.5rem 2rem;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.sitenor-chart-section__title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.sitenor-chart-panel {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: #1e293b;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.sitenor-chart-panel canvas {
+    max-height: 380px;
+}
+
+.sitenor-chart-pies {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+}
+
+.sitenor-chart-pie-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.25rem;
+    color: #1e293b;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sitenor-chart-pie-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+
+.sitenor-chart-pie-card canvas {
+    max-height: 220px;
+}
+
+/* Page inner */
+.sitenor-public-page {
+    padding: 2.5rem 0 4rem;
+}
+
+.sitenor-public-page-header {
+    margin-bottom: 2rem;
+}
+
+.sitenor-public-page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 0.35rem;
+}
+
+.sitenor-public-page-header p {
+    color: #64748b;
+    margin: 0;
+}
+
+.sitenor-public-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.sitenor-public-card .table {
+    margin: 0;
+}
+
+.sitenor-public-card .table th {
+    background: #f8fafc;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    font-weight: 700;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.sitenor-public-filter {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Artikel */
+.sitenor-artikel-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 100%;
+    transition: box-shadow 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.sitenor-artikel-card:hover {
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+    transform: translateY(-3px);
+    color: inherit;
+}
+
+.sitenor-artikel-card__body {
+    padding: 1.25rem;
+    flex: 1;
+}
+
+.sitenor-artikel-card__meta {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+}
+
+.sitenor-artikel-card__title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+.sitenor-artikel-content {
+    line-height: 1.75;
+}
+
+.sitenor-artikel-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Atlet profile public */
+.sitenor-atlet-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+    border-radius: 20px;
+    color: #fff;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.sitenor-atlet-hero__photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.35);
+}
+
+.sitenor-prestasi-timeline .list-group-item {
+    border-left: 3px solid #2563eb;
+    margin-bottom: 0.5rem;
+    border-radius: 0 10px 10px 0 !important;
+}
+
+.sitenor-scroll-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sitenor-level-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.sitenor-level-internasional { background: #dbeafe; color: #1d4ed8; }
+.sitenor-level-nasional { background: #d1fae5; color: #047857; }
+.sitenor-level-provinsi { background: #fef3c7; color: #b45309; }
+.sitenor-level-kabupaten { background: #f3e8ff; color: #7c3aed; }
+
+/* Kartu profil (atlet, pelatih, wasit, juri) */
+.sitenor-person-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sitenor-person-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.1);
+}
+
+.sitenor-person-card__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+    overflow: hidden;
+}
+
+.sitenor-person-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sitenor-person-card__initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #94a3b8;
+    background: linear-gradient(135deg, #eff6ff 0%, #fef2f2 100%);
+}
+
+.sitenor-person-card__badge {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.75);
+    color: #fff;
+    backdrop-filter: blur(4px);
+}
+
+.sitenor-person-card__body {
+    padding: 1rem 1.1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.sitenor-person-card__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.35rem;
+    line-height: 1.3;
+}
+
+.sitenor-person-card__cabor {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0 0 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.sitenor-person-card__cabor i {
+    font-size: 0.85rem;
+    color: #dc2626;
+}
+
+.sitenor-person-card__meta {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    flex: 1;
+}
+
+.sitenor-person-card__meta li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: #475569;
+    margin-bottom: 0.25rem;
+}
+
+.sitenor-person-card__meta li i {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.sitenor-person-card__actions {
+    margin-top: auto;
+}
+
+/* Kartu prestasi */
+.sitenor-prestasi-card-public {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sitenor-prestasi-card-public:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.sitenor-prestasi-card-public__top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sitenor-prestasi-card-public__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #64748b;
+}
+
+.sitenor-prestasi-card-public__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sitenor-prestasi-card-public__atlet {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.15rem;
+    color: #0f172a;
+}
+
+.sitenor-prestasi-card-public__cabor {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.sitenor-prestasi-card-public__body {
+    padding: 1rem 1.15rem 1.15rem;
+}
+
+.sitenor-prestasi-card-public__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 0.35rem;
+}
+
+.sitenor-prestasi-card-public__event {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* Modal detail */
+.sitenor-person-modal .modal-content {
+    border-radius: 20px;
+}
+
+.sitenor-person-detail__photo-wrap {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eff6ff, #fef2f2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+
+.sitenor-person-detail__photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sitenor-person-detail__initial {
+    font-family: 'Outfit', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: #94a3b8;
+}
+
+.sitenor-person-detail__type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 0.85rem;
+    background: #dc2626 !important;
+    color: #fff !important;
+}
+
+.sitenor-person-detail__name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.sitenor-person-detail__dl {
+    margin: 0;
+}
+
+.sitenor-person-detail__row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sitenor-person-detail__row:last-child {
+    border-bottom: none;
+}
+
+.sitenor-person-detail__row dt {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0;
+}
+
+.sitenor-person-detail__row dd {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.sitenor-person-detail__bio {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+/* Section & empty */
+.sitenor-section-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sitenor-section-title__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.sitenor-section-title__dot--danger {
+    background: #dc2626;
+}
+
+.sitenor-section-title__dot--primary {
+    background: #2563eb;
+}
+
+.sitenor-public-empty {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background: #fff;
+    border: 1px dashed #e2e8f0;
+    border-radius: 16px;
+    color: #64748b;
+}
+
+.sitenor-public-empty i {
+    font-size: 2.5rem;
+    color: #cbd5e1;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.sitenor-public-empty--sm {
+    padding: 1.5rem;
+}
+
+.sitenor-public-pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.sitenor-public-pagination .pagination {
+    gap: 0.25rem;
+    margin: 0;
+}
+
+.sitenor-public-pagination .page-link {
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+
+.sitenor-public-pagination .page-item.active .page-link {
+    background: #dc2626;
+    border-color: #dc2626;
+}
+
+@media (max-width: 575.98px) {
+    .sitenor-person-detail__row {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sitenor-public-nav--mobile {
+        width: 100%;
+    }
+
+    .sitenor-public-hero .d-flex.gap-2 {
+        flex-direction: column;
+    }
+
+    .sitenor-public-hero .btn-lg {
+        width: 100%;
+    }
+}

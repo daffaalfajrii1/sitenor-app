@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cabor extends Model
 {
@@ -74,5 +75,20 @@ class Cabor extends Model
     public function artikels(): HasMany
     {
         return $this->hasMany(Artikel::class);
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function kepalaCabor(): HasOne
+    {
+        return $this->hasOne(User::class)->whereHas('roles', fn ($q) => $q->where('name', User::ROLE_ADMIN_CABOR));
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

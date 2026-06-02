@@ -11,7 +11,7 @@
         @if (count($crumbs) > 0)
             <ul class="breadcrumb mb-0">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dashboard') }}">Beranda</a>
+                    <a href="{{ $homeRoute ?? (auth()->user()?->hasRole(\App\Models\User::ROLE_ADMIN_CABOR) ? cabor_route('cabor.dashboard') : route('admin.dashboard')) }}">Beranda</a>
                 </li>
                 @foreach ($crumbs as $crumb)
                     <li class="breadcrumb-item {{ $loop->last ? 'active' : '' }}" @if($loop->last) aria-current="page" @endif>

@@ -1,8 +1,53 @@
 @extends('admin.layouts.app')
 @section('title', 'Pelatih')
 @section('content')
-@include('admin.components.page-header', ['title' => 'Pelatih', 'breadcrumb' => '<li class="breadcrumb-item">Pelatih</li>', 'actions' => '<a href="'.route('admin.pelatih.create').'" class="btn btn-primary"><i class="feather-plus me-2"></i>Tambah</a>'])
+@include('admin.components.page-header', [
+    'title' => 'Data Pelatih',
+    'crumbs' => [['label' => 'Pelatih']],
+    'actions' => view('admin.components.excel-toolbar', [
+        'module' => 'pelatih',
+        'createRoute' => route('admin.pelatih.create'),
+        'createLabel' => 'Tambah Pelatih',
+    ])->render(),
+])
 <div class="main-content">
-<div class="card mb-3"><div class="card-body"><form method="GET" class="row g-2"><div class="col-md-4"><select name="cabor_id" class="form-control"><option value="">Semua Cabor</option>@foreach($cabors as $c)<option value="{{ $c->id }}" @selected(request('cabor_id')==$c->id)>{{ $c->name }}</option>@endforeach</select></div><div class="col-md-4"><input type="text" name="search" class="form-control" placeholder="Cari..." value="{{ request('search') }}"></div><div class="col-md-2"><button class="btn btn-light-brand w-100">Filter</button></div></form></div></div>
-<div class="card"><div class="card-body p-0"><div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Nama</th><th>Cabor</th><th>Status</th><th>Aksi</th></tr></thead><tbody>@forelse ($pelatih as $item)<tr><td>{{ $item->name }}</td><td>{{ $item->cabor?->name }}</td><td><span class="badge {{ $item->is_active ? 'bg-soft-success text-success' : 'bg-soft-danger text-danger' }}">{{ $item->is_active ? 'Aktif' : 'Nonaktif' }}</span></td><td><a href="{{ route('admin.pelatih.edit', $item) }}" class="btn btn-sm btn-light-brand">Edit</a><form action="{{ route('admin.pelatih.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus?')">@csrf @method('DELETE')<button class="btn btn-sm btn-danger">Hapus</button></form></td></tr>@empty<tr><td colspan="4" class="text-center text-muted py-4">Belum ada data.</td></tr>@endforelse</tbody></table></div><div class="p-3">{{ $pelatih->links() }}</div></div></div>
+    @include('admin.components.list-filters', ['cabors' => $cabors, 'searchPlaceholder' => 'Cari nama / lisensi...'])
+    <div class="card sitenor-table-card">
+        <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table sitenor-data-table table-hover mb-0 align-middle">
+                <thead><tr>
+                    <th style="width:50px">No</th>
+                    <th>Nama</th>
+                    <th>Cabor</th>
+                    <th>Lisensi</th>
+                    <th>Level</th>
+                    <th>Status</th>
+                    <th class="text-end">Aksi</th>
+                </tr></thead>
+                <tbody>
+                @forelse ($pelatihs as $item)
+                <tr>
+                    <td>{{ $pelatihs->firstItem() + $loop->index }}</td>
+                    <td class="fw-semibold">{{ $item->name }}</td>
+                    <td>{{ $item->cabor?->name }}</td>
+                    <td>{{ $item->license_number ?? '-' }}</td>
+                    <td>{{ $item->level_label }}</td>
+                    <td><span class="badge {{ $item->is_active ? 'bg-soft-success text-success' : 'bg-soft-danger text-danger' }}">{{ $item->is_active ? 'Aktif' : 'Nonaktif' }}</span></td>
+                    <td class="text-end">
+                        <x-admin.components.table-actions>
+                            <a href="{{ route('admin.pelatih.edit', $item) }}" class="btn btn-sm btn-light-brand">Edit</a>
+                            <form action="{{ route('admin.pelatih.destroy', $item) }}" method="POST" class="d-inline m-0" onsubmit="return confirm('Hapus data ini?')">@csrf @method('DELETE')<button type="submit" class="btn btn-sm btn-danger">Hapus</button></form>
+                        </x-admin.components.table-actions>
+                    </td>
+                </tr>
+                @empty
+                <tr><td colspan="7" class="text-center text-muted py-4">Belum ada data pelatih.</td></tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
+        <div class="p-3 border-top">{{ $pelatihs->links() }}</div>
+    </div></div>
+</div>
 @endsection

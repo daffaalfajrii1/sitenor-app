@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasCompetitionLevel;
+use App\Models\Concerns\HasStoragePhoto;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Wasit extends Model
 {
+    use HasCompetitionLevel;
+    use HasStoragePhoto;
+
     protected $fillable = [
         'cabor_id',
         'name',

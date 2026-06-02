@@ -36,6 +36,14 @@ class RolePermissionSeeder extends Seeder
 
             'view pengumuman',
             'manage pengumuman',
+
+            'manage settings',
+
+            'view admin cabor',
+            'manage admin cabor',
+
+            'view prestasi',
+            'manage prestasi',
         ];
 
         foreach ($permissions as $permission) {
@@ -50,8 +58,8 @@ class RolePermissionSeeder extends Seeder
             'guard_name' => 'web',
         ]);
 
-        $kepalaCabor = Role::firstOrCreate([
-            'name' => 'kepala cabor',
+        $adminCabor = Role::firstOrCreate([
+            'name' => 'admin cabor',
             'guard_name' => 'web',
         ]);
 
@@ -62,7 +70,7 @@ class RolePermissionSeeder extends Seeder
 
         $superAdmin->syncPermissions($permissions);
 
-        $kepalaCabor->syncPermissions([
+        $adminCabor->syncPermissions([
             'view dashboard',
             'view statistik',
             'view cabor',
@@ -74,6 +82,10 @@ class RolePermissionSeeder extends Seeder
             'manage wasit',
             'view juri',
             'manage juri',
+            'view prestasi',
+            'manage prestasi',
+            'view artikel',
+            'manage artikel',
         ]);
 
         $public->syncPermissions([

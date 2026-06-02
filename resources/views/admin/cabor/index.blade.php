@@ -8,16 +8,25 @@
         'crumbs' => [
             ['label' => 'Cabang Olahraga'],
         ],
-        'actions' => '<a href="'.route('admin.cabor.create').'" class="btn btn-primary"><i class="feather-plus me-2"></i>Tambah Cabor</a>',
+        'actions' => view('admin.components.excel-toolbar', [
+            'module' => 'cabor',
+            'createRoute' => route('admin.cabor.create'),
+            'createLabel' => 'Tambah Cabor',
+        ])->render(),
     ])
 
     <div class="main-content">
+        @include('admin.components.list-filters', [
+            'showCabor' => false,
+            'searchPlaceholder' => 'Cari nama / kode...',
+        ])
         <div class="card">
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0 align-middle">
                         <thead>
                             <tr>
+                                <th style="width:50px">No</th>
                                 <th>Kode</th>
                                 <th>Nama Cabor</th>
                                 <th class="d-none d-lg-table-cell text-center">Atlet</th>
@@ -31,6 +40,7 @@
                         <tbody>
                             @forelse ($cabors as $cabor)
                                 <tr>
+                                    <td>{{ $cabors->firstItem() + $loop->index }}</td>
                                     <td><code class="fs-12">{{ $cabor->kode }}</code></td>
                                     <td>
                                         <div class="fw-semibold">{{ $cabor->name }}</div>
@@ -65,7 +75,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center text-muted py-5">
+                                    <td colspan="9" class="text-center text-muted py-5">
                                         Belum ada cabang olahraga.
                                         <a href="{{ route('admin.cabor.create') }}" class="d-block mt-2">Tambah cabor pertama</a>
                                     </td>

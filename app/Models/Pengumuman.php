@@ -38,6 +38,6 @@ class Pengumuman extends Model
 
     public function downloadUrl(): string
     {
-        return Storage::disk('public')->url($this->file_path);
+        return asset('storage/'.$this->file_path);
     }
 }

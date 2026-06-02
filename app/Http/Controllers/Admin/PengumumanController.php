@@ -17,6 +17,7 @@ class PengumumanController extends Controller
     {
         $pengumumans = Pengumuman::query()
             ->when($request->search, fn ($q, $s) => $q->where('title', 'like', "%{$s}%"))
+            ->when($request->filled('is_published'), fn ($q) => $q->where('is_published', $request->boolean('is_published')))
             ->latest()
             ->paginate(15)
             ->withQueryString();
