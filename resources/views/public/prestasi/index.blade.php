@@ -31,7 +31,7 @@
                             <div class="sitenor-prestasi-card-public__head">
                                 <h3 class="sitenor-prestasi-card-public__atlet">{{ $atlet?->name ?? '—' }}</h3>
                                 <p class="sitenor-prestasi-card-public__cabor mb-0">
-                                    <i class="feather-flag"></i> {{ $atlet?->cabor?->name ?? '—' }}
+                                    <i class="bi bi-flag"></i> {{ $atlet?->cabor?->name ?? '—' }}
                                 </p>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
             @empty
                 <div class="col-12">
                     <div class="sitenor-public-empty">
-                        <i class="feather-award"></i>
+                        <i class="bi bi-trophy"></i>
                         <p>Belum ada prestasi.</p>
                     </div>
                 </div>

@@ -33,7 +33,7 @@
                             </span>
                         </div>
                         <a href="{{ $p->downloadUrl() }}" class="btn btn-danger" download>
-                            <i class="feather-download me-1"></i> Unduh
+                            <i class="bi bi-download me-1"></i> Unduh
                         </a>
                     </div>
                 @empty

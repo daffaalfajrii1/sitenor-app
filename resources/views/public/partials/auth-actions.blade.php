@@ -6,7 +6,7 @@
 @endphp
 @auth
     <a href="{{ auth_home_redirect() }}" class="btn {{ $btnSize }} btn-danger fw-semibold text-white {{ $btnClass }}">
-        <i class="feather-grid me-1"></i> Panel Saya
+        <i class="bi bi-grid me-1"></i> Panel Saya
     </a>
     <form method="POST" action="{{ route('logout') }}" class="{{ $stacked ? 'w-100' : 'd-inline' }}">
         @csrf

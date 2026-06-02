@@ -1,5 +1,5 @@
 /**
- * Menu mobile halaman publik (offcanvas).
+ * Menu mobile halaman publik (Bootstrap offcanvas).
  */
 (function () {
     'use strict';
@@ -14,72 +14,34 @@
             return;
         }
 
-        function openMenu() {
-            offcanvasEl.classList.add('show');
+        if (typeof bootstrap === 'undefined' || !bootstrap.Offcanvas) {
+            return;
+        }
+
+        var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+
+        offcanvasEl.addEventListener('show.bs.offcanvas', function () {
             document.body.classList.add(BODY_OPEN_CLASS);
             toggleBtn.setAttribute('aria-expanded', 'true');
+            toggleBtn.classList.add('is-active');
+        });
 
-            var backdrop = document.createElement('div');
-            backdrop.className = 'offcanvas-backdrop fade show sitenor-offcanvas-backdrop';
-            backdrop.id = 'sitenorOffcanvasBackdrop';
-            document.body.appendChild(backdrop);
-
-            backdrop.addEventListener('click', closeMenu);
-        }
-
-        function closeMenu() {
-            offcanvasEl.classList.remove('show');
+        offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
             document.body.classList.remove(BODY_OPEN_CLASS);
             toggleBtn.setAttribute('aria-expanded', 'false');
-
-            document.getElementById('sitenorOffcanvasBackdrop')?.remove();
-        }
-
-        function toggleMenu() {
-            if (offcanvasEl.classList.contains('show')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        }
-
-        if (typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
-            var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
-
-            toggleBtn.addEventListener('click', function () {
-                offcanvas.toggle();
-            });
-
-            offcanvasEl.addEventListener('show.bs.offcanvas', function () {
-                document.body.classList.add(BODY_OPEN_CLASS);
-                toggleBtn.setAttribute('aria-expanded', 'true');
-            });
-
-            offcanvasEl.addEventListener('hidden.bs.offcanvas', function () {
-                document.body.classList.remove(BODY_OPEN_CLASS);
-                toggleBtn.setAttribute('aria-expanded', 'false');
-            });
-        } else {
-            toggleBtn.addEventListener('click', toggleMenu);
-
-            var closeBtn = document.getElementById('sitenorPublicNavClose');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeMenu);
-            }
-        }
+            toggleBtn.classList.remove('is-active');
+        });
 
         offcanvasEl.querySelectorAll('.sitenor-public-nav__link[href]').forEach(function (link) {
-            if (link.getAttribute('href') === '#') {
+            var href = link.getAttribute('href');
+
+            if (!href || href === '#') {
                 return;
             }
 
             link.addEventListener('click', function () {
                 if (offcanvasEl.classList.contains('show')) {
-                    if (typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
-                        bootstrap.Offcanvas.getInstance(offcanvasEl)?.hide();
-                    } else {
-                        closeMenu();
-                    }
+                    offcanvas.hide();
                 }
             });
         });

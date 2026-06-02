@@ -21,8 +21,8 @@
                         :cabor="$atlet->cabor?->name"
                         :badge="$atlet->prestasis_count.' Prestasi'"
                         :meta="array_filter([
-                            ['icon' => 'feather-calendar', 'label' => $atlet->age_label],
-                            ['icon' => 'feather-user', 'label' => $atlet->gender ? ucfirst($atlet->gender) : null],
+                            ['icon' => 'bi bi-calendar3', 'label' => $atlet->age_label],
+                            ['icon' => 'bi bi-person', 'label' => $atlet->gender ? ucfirst($atlet->gender) : null],
                         ])"
                         :href="route('public.atlet.show', $atlet)"
                         action-label="Lihat Prestasi"
@@ -31,7 +31,7 @@
             @empty
                 <div class="col-12">
                     <div class="sitenor-public-empty">
-                        <i class="feather-users"></i>
+                        <i class="bi bi-people"></i>
                         <p>Belum ada data atlet.</p>
                     </div>
                 </div>

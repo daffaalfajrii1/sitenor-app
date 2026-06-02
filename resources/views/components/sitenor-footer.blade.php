@@ -23,19 +23,19 @@
                         <ul class="sitenor-public-footer__list mb-0">
                             @if ($site->address)
                                 <li>
-                                    <i class="feather-map-pin"></i>
+                                    <i class="bi bi-geo-alt"></i>
                                     <span>{{ $site->address }}</span>
                                 </li>
                             @endif
                             @if ($site->email)
                                 <li>
-                                    <i class="feather-mail"></i>
+                                    <i class="bi bi-envelope"></i>
                                     <a href="mailto:{{ $site->email }}">{{ $site->email }}</a>
                                 </li>
                             @endif
                             @if ($site->phone)
                                 <li>
-                                    <i class="feather-phone"></i>
+                                    <i class="bi bi-telephone"></i>
                                     <a href="tel:{{ preg_replace('/\s+/', '', $site->phone) }}">{{ $site->phone }}</a>
                                 </li>
                             @endif
@@ -49,17 +49,17 @@
                         <div class="sitenor-public-footer__social">
                             @if ($site->instagram)
                                 <a href="{{ $site->socialUrl($site->instagram) }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                    <i class="feather-instagram"></i>
+                                    <i class="bi bi-instagram"></i>
                                 </a>
                             @endif
                             @if ($site->facebook)
                                 <a href="{{ $site->socialUrl($site->facebook) }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                                    <i class="feather-facebook"></i>
+                                    <i class="bi bi-facebook"></i>
                                 </a>
                             @endif
                             @if ($site->youtube)
                                 <a href="{{ $site->socialUrl($site->youtube) }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                                    <i class="feather-youtube"></i>
+                                    <i class="bi bi-youtube"></i>
                                 </a>
                             @endif
                         </div>

@@ -25,24 +25,96 @@
     --bs-navbar-padding-y: 0.75rem;
 }
 
-.sitenor-public-navbar > .container {
+.sitenor-public-navbar__inner {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 64px;
 }
 
 .sitenor-public-navbar__brand {
     padding-top: 0;
     padding-bottom: 0;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
-.sitenor-public-navbar__toggler {
-    border-color: #e2e8f0;
-    padding: 0.4rem 0.55rem;
+/* Tombol menu mobile — hanya layar < lg */
+.sitenor-mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    color: #334155;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.sitenor-public-navbar__toggler:focus {
-    box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.2);
+.sitenor-mobile-menu-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.sitenor-mobile-menu-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.22);
+}
+
+.sitenor-mobile-menu-btn.is-active {
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.sitenor-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 20px;
+}
+
+.sitenor-hamburger__line {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sitenor-mobile-menu-btn.is-active .sitenor-hamburger__line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.sitenor-mobile-menu-btn.is-active .sitenor-hamburger__line:nth-child(2) {
+    opacity: 0;
+}
+
+.sitenor-mobile-menu-btn.is-active .sitenor-hamburger__line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (min-width: 992px) {
+    .sitenor-mobile-menu-btn {
+        display: none !important;
+    }
+}
+
+/* Mobile: sembunyikan menu desktop */
+@media (max-width: 991.98px) {
+    .sitenor-public-navbar__collapse {
+        display: none !important;
+    }
 }
 
 /* Desktop: satu baris — logo | menu | tombol */
@@ -71,11 +143,6 @@
     }
 }
 
-@media (max-width: 991.98px) {
-    .sitenor-public-navbar__collapse {
-        display: none !important;
-    }
-}
 
 .sitenor-public-offcanvas__header {
     display: flex !important;
@@ -171,8 +238,9 @@
 }
 
 .sitenor-public-nav__link i {
-    font-size: 1rem;
+    font-size: 1.05rem;
     line-height: 1;
+    flex-shrink: 0;
 }
 
 .sitenor-public-nav__link:hover,
@@ -229,9 +297,10 @@
 }
 
 .sitenor-public-offcanvas {
-    width: min(300px, 92vw);
+    width: min(320px, 92vw);
     border-left: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: -8px 0 32px rgba(15, 23, 42, 0.12);
+    z-index: 1060;
 }
 
 .offcanvas-backdrop.show,
@@ -244,11 +313,6 @@
 /* Saat menu mobile terbuka: sembunyikan header & tombol scroll */
 body.sitenor-public-nav-open {
     overflow: hidden;
-}
-
-body.sitenor-public-nav-open .sitenor-public-header {
-    visibility: hidden;
-    pointer-events: none;
 }
 
 body.sitenor-public-nav-open .sitenor-scroll-top {
@@ -275,12 +339,14 @@ body.sitenor-public-nav-open .sitenor-scroll-top {
 
     .sitenor-brand--public .sitenor-brand-name {
         font-size: 1.05rem;
-        max-width: min(180px, 52vw);
+        max-width: min(200px, 58vw);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-    .sitenor-public-navbar__toggler {
-        position: relative;
-        z-index: 2;
+    .sitenor-public-navbar__actions {
+        display: none !important;
     }
 }
 

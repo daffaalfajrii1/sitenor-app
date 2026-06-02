@@ -25,7 +25,7 @@
         <h3 class="sitenor-person-card__name">{{ $name }}</h3>
         @if ($cabor)
             <p class="sitenor-person-card__cabor">
-                <i class="feather-flag"></i> {{ $cabor }}
+                <i class="bi bi-flag"></i> {{ $cabor }}
             </p>
         @endif
         @if (count($meta))

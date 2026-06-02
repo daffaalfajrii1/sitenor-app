@@ -1,6 +1,6 @@
 <header class="sitenor-public-header bg-white">
     <nav class="navbar navbar-expand-lg sitenor-public-navbar py-0">
-        <div class="container">
+        <div class="container sitenor-public-navbar__inner">
             <x-sitenor-brand
                 :href="route('public.home')"
                 :show-name="true"
@@ -8,20 +8,8 @@
                 class="sitenor-public-navbar__brand navbar-brand me-0"
             />
 
-            {{-- Mobile: buka offcanvas --}}
-            <button
-                id="sitenorPublicNavToggle"
-                class="navbar-toggler sitenor-public-navbar__toggler d-lg-none ms-auto"
-                type="button"
-                aria-controls="sitenorPublicNav"
-                aria-expanded="false"
-                aria-label="Buka menu"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            {{-- Desktop: menu horizontal (Bootstrap navbar-expand-lg) --}}
-            <div class="collapse navbar-collapse sitenor-public-navbar__collapse" id="sitenorPublicNavbarDesktop">
+            {{-- Desktop: menu horizontal + tombol auth --}}
+            <div class="sitenor-public-navbar__collapse" id="sitenorPublicNavbarDesktop">
                 <div class="sitenor-public-navbar__menu mx-lg-auto">
                     @include('public.partials.nav-links')
                 </div>
@@ -29,6 +17,24 @@
                     @include('public.partials.auth-actions')
                 </div>
             </div>
+
+            {{-- Mobile: tombol menu (hanya tampil di layar kecil) --}}
+            <button
+                type="button"
+                id="sitenorPublicNavToggle"
+                class="sitenor-mobile-menu-btn d-lg-none"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sitenorPublicNav"
+                aria-controls="sitenorPublicNav"
+                aria-expanded="false"
+                aria-label="Buka menu navigasi"
+            >
+                <span class="sitenor-hamburger" aria-hidden="true">
+                    <span class="sitenor-hamburger__line"></span>
+                    <span class="sitenor-hamburger__line"></span>
+                    <span class="sitenor-hamburger__line"></span>
+                </span>
+            </button>
         </div>
     </nav>
 </header>

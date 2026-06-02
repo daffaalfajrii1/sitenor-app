@@ -22,7 +22,7 @@
         <div class="col-md-8">
             <h4 class="sitenor-person-detail__name mb-1">{{ $person->name }}</h4>
             <p class="text-muted mb-3">
-                <i class="feather-flag me-1"></i>{{ $person->cabor?->name ?? '—' }}
+                <i class="bi bi-flag me-1"></i>{{ $person->cabor?->name ?? '—' }}
             </p>
 
             <dl class="sitenor-person-detail__dl">

@@ -6,11 +6,11 @@
 @endphp
 <{{ $navTag }} class="{{ $navClass }}">
     <a href="{{ route('public.home') }}" class="sitenor-public-nav__link {{ request()->routeIs('public.home') ? 'active' : '' }}">
-        <i class="feather-home"></i>
+        <i class="bi bi-house-door"></i>
         <span>Beranda</span>
     </a>
     <a href="{{ route('public.statistik') }}" class="sitenor-public-nav__link {{ request()->routeIs('public.statistik') ? 'active' : '' }}">
-        <i class="feather-bar-chart-2"></i>
+        <i class="bi bi-bar-chart-line"></i>
         <span>Statistik</span>
     </a>
 
@@ -28,7 +28,7 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
-                <i class="feather-database"></i>
+                <i class="bi bi-database"></i>
                 <span>Data</span>
             </a>
             <ul class="dropdown-menu">
@@ -42,11 +42,11 @@
     @endif
 
     <a href="{{ route('public.artikel.index') }}" class="sitenor-public-nav__link {{ request()->routeIs('public.artikel.*') ? 'active' : '' }}">
-        <i class="feather-file-text"></i>
+        <i class="bi bi-file-text"></i>
         <span>Artikel</span>
     </a>
     <a href="{{ route('public.unduh.index') }}" class="sitenor-public-nav__link {{ request()->routeIs('public.unduh.*') ? 'active' : '' }}">
-        <i class="feather-download"></i>
+        <i class="bi bi-download"></i>
         <span>Unduh</span>
     </a>
 </{{ $navTag }}>

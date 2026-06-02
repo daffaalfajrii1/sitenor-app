@@ -20,8 +20,8 @@
                         :initial="$pelatih->photoInitial()"
                         :cabor="$pelatih->cabor?->name"
                         :meta="[
-                            ['icon' => 'feather-award', 'label' => $pelatih->level_label],
-                            ['icon' => 'feather-credit-card', 'label' => $pelatih->license_number ? 'Lisensi: '.$pelatih->license_number : '—'],
+                            ['icon' => 'bi bi-trophy', 'label' => $pelatih->level_label],
+                            ['icon' => 'bi bi-credit-card-2', 'label' => $pelatih->license_number ? 'Lisensi: '.$pelatih->license_number : '—'],
                         ]"
                         :modal-url="route('public.pelatih.show', $pelatih)"
                         action-label="Lihat Detail"
@@ -30,7 +30,7 @@
             @empty
                 <div class="col-12">
                     <div class="sitenor-public-empty">
-                        <i class="feather-users"></i>
+                        <i class="bi bi-people"></i>
                         <p>Belum ada data pelatih.</p>
                     </div>
                 </div>

@@ -29,7 +29,7 @@
                             :cabor="$wasit->cabor?->name"
                             badge="Wasit"
                             :meta="[
-                                ['icon' => 'feather-award', 'label' => $wasit->level_label],
+                                ['icon' => 'bi bi-trophy', 'label' => $wasit->level_label],
                             ]"
                             :modal-url="route('public.wasit.show', $wasit)"
                             action-label="Lihat Detail"
@@ -64,7 +64,7 @@
                             :cabor="$juri->cabor?->name"
                             badge="Juri"
                             :meta="[
-                                ['icon' => 'feather-award', 'label' => $juri->level_label],
+                                ['icon' => 'bi bi-trophy', 'label' => $juri->level_label],
                             ]"
                             :modal-url="route('public.juri.show', $juri)"
                             action-label="Lihat Detail"
