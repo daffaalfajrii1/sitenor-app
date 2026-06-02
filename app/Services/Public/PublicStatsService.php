@@ -14,20 +14,88 @@ use Illuminate\Support\Facades\DB;
 
 class PublicStatsService
 {
-    public function summary(): array
+    /**
+     * @return null Daftar semua cabor aktif (tanpa filter).
+     * @return false Tidak ada cabor yang cocok dengan pencarian.
+     * @return list<int> ID cabor yang cocok.
+     */
+    public function resolveCaborIds(?string $search): null|false|array
+    {
+        $search = trim((string) $search);
+
+        if ($search === '') {
+            return null;
+        }
+
+        $ids = Cabor::query()
+            ->where('is_active', true)
+            ->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('kode', 'like', "%{$search}%");
+            })
+            ->pluck('id')
+            ->all();
+
+        return $ids === [] ? false : $ids;
+    }
+
+    public function summary(?string $search = null): array
+    {
+        $caborIds = $this->resolveCaborIds($search);
+
+        if ($caborIds === false) {
+            return $this->emptySummary();
+        }
+
+        $atletQuery = Atlet::query()->where('is_active', true);
+        $pelatihQuery = Pelatih::query()->where('is_active', true);
+        $wasitQuery = Wasit::query()->where('is_active', true);
+        $juriQuery = Juri::query()->where('is_active', true);
+        $prestasiQuery = Prestasi::query()
+            ->whereHas('atlet', fn ($q) => $q->where('is_active', true));
+
+        if (is_array($caborIds)) {
+            $atletQuery->whereIn('cabor_id', $caborIds);
+            $pelatihQuery->whereIn('cabor_id', $caborIds);
+            $wasitQuery->whereIn('cabor_id', $caborIds);
+            $juriQuery->whereIn('cabor_id', $caborIds);
+            $prestasiQuery->whereHas('atlet', fn ($q) => $q->whereIn('cabor_id', $caborIds));
+        }
+
+        $wasitCount = (clone $wasitQuery)->count();
+        $juriCount = (clone $juriQuery)->count();
+
+        return [
+            'cabor' => is_array($caborIds)
+                ? count($caborIds)
+                : Cabor::where('is_active', true)->count(),
+            'atlet' => $atletQuery->count(),
+            'pelatih' => $pelatihQuery->count(),
+            'wasit' => $wasitCount,
+            'juri' => $juriCount,
+            'wasit_juri' => $wasitCount + $juriCount,
+            'prestasi' => $prestasiQuery->count(),
+            'prestasi_nasional' => $this->prestasiCountByLevels(['nasional'], $caborIds),
+            'prestasi_internasional' => $this->prestasiCountByLevels(['internasional'], $caborIds),
+            'artikel' => Artikel::where('is_published', true)->count(),
+        ];
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function emptySummary(): array
     {
         return [
-            'cabor' => Cabor::where('is_active', true)->count(),
-            'atlet' => Atlet::where('is_active', true)->count(),
-            'pelatih' => Pelatih::where('is_active', true)->count(),
-            'wasit' => Wasit::where('is_active', true)->count(),
-            'juri' => Juri::where('is_active', true)->count(),
-            'wasit_juri' => Wasit::where('is_active', true)->count() + Juri::where('is_active', true)->count(),
-            'prestasi' => Prestasi::query()
-                ->whereHas('atlet', fn ($q) => $q->where('is_active', true))
-                ->count(),
-            'prestasi_nasional' => $this->prestasiCountByLevels(['nasional']),
-            'prestasi_internasional' => $this->prestasiCountByLevels(['internasional']),
+            'cabor' => 0,
+            'atlet' => 0,
+            'pelatih' => 0,
+            'wasit' => 0,
+            'juri' => 0,
+            'wasit_juri' => 0,
+            'prestasi' => 0,
+            'prestasi_nasional' => 0,
+            'prestasi_internasional' => 0,
             'artikel' => Artikel::where('is_published', true)->count(),
         ];
     }
@@ -35,10 +103,17 @@ class PublicStatsService
     /**
      * @return Collection<int, object{name: string, atlet: int, pelatih: int, wasit_juri: int, total: int}>
      */
-    public function entitiesPerCabor(): Collection
+    public function entitiesPerCabor(?string $search = null): Collection
     {
+        $caborIds = $this->resolveCaborIds($search);
+
+        if ($caborIds === false) {
+            return collect();
+        }
+
         return Cabor::query()
             ->where('is_active', true)
+            ->when(is_array($caborIds), fn ($q) => $q->whereIn('id', $caborIds))
             ->withCount([
                 'atlets as atlet_count' => fn ($q) => $q->where('is_active', true),
                 'pelatihs as pelatih_count' => fn ($q) => $q->where('is_active', true),
@@ -59,18 +134,26 @@ class PublicStatsService
     /**
      * @return array<string, int>
      */
-    public function pelatihByLevel(): array
+    public function pelatihByLevel(?string $search = null): array
     {
-        return $this->countByLevel(Pelatih::query()->where('is_active', true));
+        $query = Pelatih::query()->where('is_active', true);
+        $this->applyCaborScope($query, $search);
+
+        return $this->countByLevel($query);
     }
 
     /**
      * @return array<string, int>
      */
-    public function wasitJuriByLevel(): array
+    public function wasitJuriByLevel(?string $search = null): array
     {
-        $wasit = $this->countByLevel(Wasit::query()->where('is_active', true));
-        $juri = $this->countByLevel(Juri::query()->where('is_active', true));
+        $wasitQuery = Wasit::query()->where('is_active', true);
+        $juriQuery = Juri::query()->where('is_active', true);
+        $this->applyCaborScope($wasitQuery, $search);
+        $this->applyCaborScope($juriQuery, $search);
+
+        $wasit = $this->countByLevel($wasitQuery);
+        $juri = $this->countByLevel($juriQuery);
 
         $keys = array_unique(array_merge(array_keys($wasit), array_keys($juri)));
 
@@ -87,10 +170,21 @@ class PublicStatsService
      *
      * @return array<string, int>
      */
-    public function prestasiByLevel(): array
+    public function prestasiByLevel(?string $search = null): array
     {
+        $caborIds = $this->resolveCaborIds($search);
+
+        if ($caborIds === false) {
+            return [];
+        }
+
         $rows = Prestasi::query()
-            ->whereHas('atlet', fn ($q) => $q->where('is_active', true))
+            ->whereHas('atlet', function ($q) use ($caborIds) {
+                $q->where('is_active', true);
+                if (is_array($caborIds)) {
+                    $q->whereIn('cabor_id', $caborIds);
+                }
+            })
             ->select('level', DB::raw('COUNT(*) as total'))
             ->groupBy('level')
             ->pluck('total', 'level');
@@ -106,13 +200,20 @@ class PublicStatsService
     /**
      * @return Collection<int, object{cabor_name: string, nasional: int, internasional: int, provinsi: int, kabupaten: int, total: int}>
      */
-    public function prestasiPerCaborByLevel(): Collection
+    public function prestasiPerCaborByLevel(?string $search = null): Collection
     {
+        $caborIds = $this->resolveCaborIds($search);
+
+        if ($caborIds === false) {
+            return collect();
+        }
+
         $rows = Prestasi::query()
             ->join('atlets', 'prestasis.atlet_id', '=', 'atlets.id')
             ->join('cabors', 'atlets.cabor_id', '=', 'cabors.id')
             ->where('atlets.is_active', true)
             ->where('cabors.is_active', true)
+            ->when(is_array($caborIds), fn ($q) => $q->whereIn('cabors.id', $caborIds))
             ->select([
                 'cabors.name as cabor_name',
                 'prestasis.level',
@@ -138,10 +239,21 @@ class PublicStatsService
     /**
      * @return Collection<int, object{year: int, total: int}>
      */
-    public function prestasiByYear(): Collection
+    public function prestasiByYear(?string $search = null): Collection
     {
+        $caborIds = $this->resolveCaborIds($search);
+
+        if ($caborIds === false) {
+            return collect();
+        }
+
         return Prestasi::query()
-            ->whereHas('atlet', fn ($q) => $q->where('is_active', true))
+            ->whereHas('atlet', function ($q) use ($caborIds) {
+                $q->where('is_active', true);
+                if (is_array($caborIds)) {
+                    $q->whereIn('cabor_id', $caborIds);
+                }
+            })
             ->whereNotNull('year')
             ->select('year', DB::raw('COUNT(*) as total'))
             ->groupBy('year')
@@ -150,12 +262,36 @@ class PublicStatsService
             ->get();
     }
 
-    private function prestasiCountByLevels(array $levels): int
+    /**
+     * @param  null|false|list<int>  $caborIds
+     */
+    private function prestasiCountByLevels(array $levels, null|false|array $caborIds = null): int
     {
+        if ($caborIds === false) {
+            return 0;
+        }
+
         return Prestasi::query()
-            ->whereHas('atlet', fn ($q) => $q->where('is_active', true))
+            ->whereHas('atlet', function ($q) use ($caborIds) {
+                $q->where('is_active', true);
+                if (is_array($caborIds)) {
+                    $q->whereIn('cabor_id', $caborIds);
+                }
+            })
             ->whereIn('level', $levels)
             ->count();
+    }
+
+    /**
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     */
+    private function applyCaborScope($query, ?string $search): void
+    {
+        $caborIds = $this->resolveCaborIds($search);
+
+        if (is_array($caborIds)) {
+            $query->whereIn('cabor_id', $caborIds);
+        }
     }
 
     /**

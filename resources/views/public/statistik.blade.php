@@ -10,6 +10,8 @@
             <p>Data agregat cabang olahraga Kabupaten Rejang Lebong — atlet, pelatih, wasit & juri, serta prestasi.</p>
         </div>
 
+        @include('public.partials.statistik-filter', ['search' => $search])
+
         <div class="sitenor-public-stat-grid mb-4">
             @foreach ([
                 ['Atlet', $summary['atlet']],
@@ -68,16 +70,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($caborSummary as $cabor)
+                    @forelse ($caborSummary as $cabor)
                         <tr>
-                            <td class="fw-semibold">{{ $cabor->name }}</td>
+                            <td class="fw-semibold">
+                                {{ $cabor->name }}
+                                @if ($cabor->kode)
+                                    <span class="text-muted fw-normal fs-12 d-block">{{ $cabor->kode }}</span>
+                                @endif
+                            </td>
                             <td class="text-center">{{ $cabor->atlet_count }}</td>
                             <td class="text-center">{{ $cabor->pelatih_count }}</td>
                             <td class="text-center">{{ $cabor->wasit_count }}</td>
                             <td class="text-center">{{ $cabor->juri_count }}</td>
                             <td class="text-center">{{ $cabor->prestasis_count }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                @if (filled($search))
+                                    Tidak ada cabang olahraga yang cocok dengan &ldquo;{{ $search }}&rdquo;.
+                                @else
+                                    Belum ada data cabang olahraga.
+                                @endif
+                            </td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
             </div>
@@ -110,7 +127,15 @@
                             <td class="text-center fw-bold">{{ $row->total }}</td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="text-center text-muted py-4">Belum ada data prestasi.</td></tr>
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                @if (filled($search))
+                                    Tidak ada prestasi untuk pencarian &ldquo;{{ $search }}&rdquo;.
+                                @else
+                                    Belum ada data prestasi.
+                                @endif
+                            </td>
+                        </tr>
                     @endforelse
                     </tbody>
                 </table>

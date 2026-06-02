@@ -698,6 +698,24 @@ body.sitenor-public-nav-open .sitenor-scroll-top {
     margin-bottom: 1.25rem;
 }
 
+.sitenor-statistik-filter .input-group-text {
+    border-color: #e2e8f0;
+}
+
+.sitenor-statistik-filter .form-control:focus {
+    border-color: #fca5a5;
+    box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.12);
+}
+
+.sitenor-statistik-filter__hint {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.sitenor-statistik-filter__hint strong {
+    color: #0f172a;
+}
+
 /* Artikel */
 .sitenor-artikel-card {
     background: #fff;
