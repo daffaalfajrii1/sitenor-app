@@ -82,6 +82,7 @@
                             <table class="table sitenor-data-table table-sm table-hover mb-0">
                                 <thead>
                                     <tr>
+                                        <x-table-no-th />
                                         <th>Cabor</th>
                                         <th>Tahun</th>
                                         <th class="text-end">Jumlah</th>
@@ -90,6 +91,7 @@
                                 <tbody>
                                 @forelse($prestasiByCaborYear as $row)
                                     <tr>
+                                        <x-table-no-td :index="$loop->index" />
                                         <td class="fw-semibold">{{ $row->cabor_name }}</td>
                                         <td>{{ $row->year }}</td>
                                         <td class="text-end">
@@ -97,7 +99,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="3" class="text-center text-muted py-4">Belum ada data.</td></tr>
+                                    <tr><td colspan="4" class="text-center text-muted py-4">Belum ada data.</td></tr>
                                 @endforelse
                                 </tbody>
                             </table>
@@ -118,6 +120,7 @@
                     <table class="table sitenor-data-table table-hover mb-0 align-middle">
                         <thead>
                             <tr>
+                                <x-table-no-th />
                                 <th>Cabor</th>
                                 <th class="text-center">Atlet</th>
                                 <th class="text-center">Pelatih</th>
@@ -129,6 +132,7 @@
                         <tbody>
                         @forelse($caborSummary as $cabor)
                             <tr>
+                                <x-table-no-td :index="$loop->index" />
                                 <td class="sitenor-cell-name">{{ $cabor->name }}</td>
                                 <td class="text-center">{{ $cabor->atlets_count }}</td>
                                 <td class="text-center">{{ $cabor->pelatihs_count }}</td>
@@ -141,7 +145,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="6" class="text-center text-muted py-4">Belum ada cabang olahraga.</td></tr>
+                            <tr><td colspan="7" class="text-center text-muted py-4">Belum ada cabang olahraga.</td></tr>
                         @endforelse
                         </tbody>
                     </table>
@@ -220,6 +224,7 @@
                     <table class="table sitenor-data-table table-hover mb-0">
                         <thead>
                             <tr>
+                                <x-table-no-th />
                                 <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Status</th>
@@ -229,6 +234,7 @@
                         <tbody>
                             @forelse ($recentCabors as $cabor)
                                 <tr>
+                                    <x-table-no-td :index="$loop->index" />
                                     <td><code>{{ $cabor->kode ?? '-' }}</code></td>
                                     <td>{{ $cabor->name }}</td>
                                     <td>
@@ -240,7 +246,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
+                                    <td colspan="5" class="text-center text-muted py-4">
                                         Belum ada cabang olahraga.
                                         <a href="{{ route('admin.cabor.create') }}">Tambah sekarang</a>
                                     </td>

@@ -61,6 +61,7 @@
                 <table class="table table-hover mb-0">
                     <thead>
                         <tr>
+                            <x-table-no-th />
                             <th>Cabor</th>
                             <th class="text-center">Atlet</th>
                             <th class="text-center">Pelatih</th>
@@ -72,6 +73,7 @@
                     <tbody>
                     @forelse ($caborSummary as $cabor)
                         <tr>
+                            <x-table-no-td :index="$loop->index" />
                             <td class="fw-semibold">
                                 {{ $cabor->name }}
                                 @if ($cabor->kode)
@@ -86,7 +88,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
+                            <td colspan="7" class="text-center text-muted py-4">
                                 @if (filled($search))
                                     Tidak ada cabang olahraga yang cocok dengan &ldquo;{{ $search }}&rdquo;.
                                 @else
@@ -108,6 +110,7 @@
                 <table class="table table-hover mb-0">
                     <thead>
                         <tr>
+                            <x-table-no-th />
                             <th>Cabor</th>
                             <th class="text-center">Internasional</th>
                             <th class="text-center">Nasional</th>
@@ -119,6 +122,7 @@
                     <tbody>
                     @forelse ($prestasiPerCabor as $row)
                         <tr>
+                            <x-table-no-td :index="$loop->index" />
                             <td class="fw-semibold">{{ $row->cabor_name }}</td>
                             <td class="text-center">{{ $row->internasional }}</td>
                             <td class="text-center">{{ $row->nasional }}</td>
@@ -128,7 +132,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
+                            <td colspan="7" class="text-center text-muted py-4">
                                 @if (filled($search))
                                     Tidak ada prestasi untuk pencarian &ldquo;{{ $search }}&rdquo;.
                                 @else

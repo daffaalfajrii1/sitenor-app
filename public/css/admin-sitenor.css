@@ -139,6 +139,17 @@ html:not(.minimenu) .nxl-navigation .m-header .sitenor-panel-brand__logo-wrap .l
     color: #1e293b;
 }
 
+.sitenor-table-no {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8 !important;
+    vertical-align: middle;
+}
+
+.sitenor-table-no.text-muted {
+    color: #94a3b8 !important;
+}
+
 .sitenor-table-actions {
     gap: 0.35rem;
 }
